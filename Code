@@ -33,3 +33,17 @@ echo Jpoller batch  >>service.txt
 sc query "servicename" | findstr /i "STATE" >>service.txt
 echo IBM Websphere >>service.txt
 sc query "IBMWAS70Service - Servername"| findstr /i "STATE" >>service.txt
+
+
+# Backup Code "
+set "datestamp=%YYYY%%MM%%DD%"
+
+Z:
+
+cd \ENV40\import
+ren Completed BKUP_%datestamp%_Completed
+md Completed
+
+cd \ENV40\DataShare\SDO
+ren Done BKUP_%datestamp%_Done
+md Done
