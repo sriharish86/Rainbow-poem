@@ -1,0 +1,35 @@
+sc queryex ftpsvc
+
+taskkill /f /pid [PID]
+
+net stop ftpsvc | net start ftpsvc
+
+net stop "Microsoft FTP Service"
+
+@echo REM Adding a user to a local group
+
+# New user creation batch script
+:loop1 
+set usr="test"
+set Pass="56778"
+set name="Ram"
+cls
+net user %usr% %pass% /ADD /FULLNAME:%name% /comment:"Infosys" /logonpasswordchg:yes
+
+REM Adding a Administrators Users group
+net localgroup "Administrators" %usr%  /add
+
+
+REM Adding a Remote Desktop Users group
+net localgroup "Remote Desktop Users" %usr% /add
+
+
+# To check user service 
+
+del "service.txt"
+echo Jpoller >>service.txt
+sc query "servicename" | findstr /i "STATE" >>service.txt
+echo Jpoller batch  >>service.txt
+sc query "servicename" | findstr /i "STATE" >>service.txt
+echo IBM Websphere >>service.txt
+sc query "IBMWAS70Service - Servername"| findstr /i "STATE" >>service.txt
